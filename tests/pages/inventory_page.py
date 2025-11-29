@@ -12,11 +12,11 @@ class InventoryPage:
     CART_ADD_BTN = (By.CSS_SELECTOR, ".btn-primary")
     CART_REMOVE_BTN = (By.CSS_SELECTOR, ".btn-warning")
 
-    def __init__(self, driver, base_url):
+    def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(driver, 10)
 
-    def open(self, url):
+    def open_page(self, url):
         self.driver.get(url)
         return self
 
@@ -28,10 +28,6 @@ class InventoryPage:
     def text_present(self, text):
         return text in self.driver.page_source
 
-    def get_elements(self, locator):
-        self.wait.until(EC.presence_of_all_elements_located(locator))
-        return self.driver.find_elements(*locator)
-
     def item_cards(self):
         return self.driver.find_elements(*self.ITEM_CARDS)
 
@@ -41,10 +37,16 @@ class InventoryPage:
                 return c
         raise AssertionError(f"Item not found: {name}")
 
+    def _find_cart_remove_button(self, card_name):
+        card = self._find_card(card_name)
+        btn = card.find_element(*self.CART_REMOVE_BTN)
+
+        return btn
+
     def open_detail(self, name):
         card = self._find_card(name)
         btn = card.find_element(*self.DETAIL_BTN)
-        if "카트에 담기" in btn.text:
+        if "상세보기" in btn.text:
             try:
                 self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", btn)
                 btn.click()
@@ -54,11 +56,12 @@ class InventoryPage:
     def add_item(self, name):
         card = self._find_card(name)
         btn = card.find_element(*self.CART_ADD_BTN)
-        try:
-            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", btn)
-            btn.click()
-        except Exception:
-            self.driver.execute_script("arguments[0].click();", btn)
+        if "카트에 담기" in btn.text:
+            try:
+                self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", btn)
+                btn.click()
+            except Exception:
+                self.driver.execute_script("arguments[0].click();", btn)
 
     def remove_item(self, name):
         card = self._find_card(name)
@@ -68,3 +71,4 @@ class InventoryPage:
             btn.click()
         except Exception:
             self.driver.execute_script("arguments[0].click();", btn)
+
