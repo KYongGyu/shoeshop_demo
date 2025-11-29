@@ -1,7 +1,6 @@
 from selenium.webdriver.common.by import By
-from saucedemo.pages.base_page import BasePage
 
-class MenuComponent(BasePage):
+class MenuComponent:
 
     LOGOUT = (By.ID, "logout_topbar_link")
     LOGIN = (By.ID, "login_topbar_link")
@@ -10,15 +9,15 @@ class MenuComponent(BasePage):
 
     def logout(self):
         if self.is_logged_in():
-            self.c(self.LOGOUT)
+            self.click(self.LOGOUT)
 
     def login(self):
         if self.is_logged_out():
-            self.c(self.LOGIN)
+            self.click(self.LOGIN)
 
     def signup(self):
         if self.is_logged_out():
-            self.c(self.SIGNUP)
+            self.click(self.SIGNUP)
 
     def is_logged_in(self):
         return self.is_element_present(self.LOGOUT)
