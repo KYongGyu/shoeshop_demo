@@ -9,10 +9,8 @@ def test_login_success(browser, base_url, wait):
     browser.find_element(By.XPATH, "//button[text()='Login']").click() #login 버튼 추적하여 클릭
 
 
-    welcome_text = wait.until(
-        EC.presence_of_element_located((By.XPATH, "//p[contains(text(), '로그인 성공')]"))
-    ).text
-    assert "로그인 성공!" in welcome_text # 로그인 성공 후 index 페이지에서 '로그인 성공!' 표시 확인
+    success_text = wait.until(EC.presence_of_element_located((By.XPATH, "//p[contains(text(), '로그인 성공')]"))).text
+    assert "로그인 성공!" in success_text # 로그인 성공 후 index 페이지에서 '로그인 성공!' 표시 확인
 
 
 def test_login_fail(browser, base_url, wait):
@@ -20,6 +18,7 @@ def test_login_fail(browser, base_url, wait):
     wait.until(EC.presence_of_element_located((By.NAME, "username"))).send_keys("wrong_user")
     browser.find_element(By.NAME, "password").send_keys("wrong_pass")
     browser.find_element(By.XPATH, "//button[text()='Login']").click()
-    time.sleep(1)
-
+    wait.until(EC.url_to_be(f"{base_url}/login" ))
+    
+    fail_text = wait.until(EC.presence_of_element_located((By.XPATH, "//p[contains(text(), '아이디 또는 비밀번호가 올바르지 않습니다.')]"))).text
     assert browser.current_url == f"{base_url}/login" # 실패 시 여전히 login 페이지에 머무름

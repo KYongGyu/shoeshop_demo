@@ -12,8 +12,8 @@ def test_signup_success(browser, base_url, wait):
     browser.find_element(By.NAME, "password").send_keys(password) #생성한 패스워드를 Password란에 입력
     browser.find_element(By.NAME, "confirm password").send_keys(password) #생성한 패스워드를 Confirm Password란에 입력
     browser.find_element(By.XPATH, "//button[text()='Signup']").click() #sign up 버튼 클릭
-    time.sleep(1) #1초 대기
-
+    wait.until(EC.url_changes(f"{base-url}/signup" )) #잠깐 대기
+    
     assert "signup" not in browser.current_url.lower() #회원가입 성공 시 URL이 signup이 아니어야 함
 
 def test_signup_then_login(browser, base_url, wait):
@@ -33,4 +33,4 @@ def test_signup_then_login(browser, base_url, wait):
     browser.find_element(By.XPATH, "//button[text()='Login']").click() #login 버튼 클릭
 
     success_text = wait.until(EC.presence_of_element_located((By.XPATH, "//p[contains(text(), '로그인 성공')]"))).text
-    assert f"로그인 성공!" in welcome_text #로그인 성공후 화면에서 '로그인 성공!' 표시
+    assert f"로그인 성공!" in success_text #로그인 성공후 화면에서 '로그인 성공!' 표시
