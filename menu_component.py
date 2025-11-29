@@ -1,11 +1,9 @@
 from selenium.webdriver.common.by import By
 
 class MenuComponent:
-
     LOGOUT = (By.ID, "logout_topbar_link")
     LOGIN = (By.ID, "login_topbar_link")
     SIGNUP = (By.ID, "signup_topbar_link")
-
 
     def logout(self):
         if self.is_logged_in():
