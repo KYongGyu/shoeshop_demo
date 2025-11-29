@@ -38,7 +38,7 @@ def test_total_math(login_standard):
         inv.add_item(n)
         total += inv.item_price(n) # 각 아이템의 가격을 총합에 더함
     inv.wait_cart_count(2)
-    assert round(inv.item_total(), 2) == round(total, 2) #계사노딘 총액과 실제 금액이 일치하는지 확인
+    assert round(inv.item_total(), 2) == round(total, 2) #계산된 총액과 실제 금액이 일치하는지 확인
 
 @pytest.mark.regression
 def test_continue_shopping_returns_inventory(login_standard):
