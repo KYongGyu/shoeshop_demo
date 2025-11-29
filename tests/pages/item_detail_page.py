@@ -1,13 +1,18 @@
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
 class ItemDetailPage:
+    CART_ADD_BTN = (By.CSS_SELECTOR, ".btn-primary")
+    GO_TO_CART_BTN = (By.CSS_SELECTOR, ".btn-outline-secondary")
+    GO_TO_MAIN_BTN = (By.CSS_SELECTOR, "a.btn-link")
+
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(driver, 10)
 
-    def open(self, url):
+    def open_page(self, url):
         self.driver.get(url)
         return self
 
@@ -16,12 +21,14 @@ class ItemDetailPage:
         el.click()
         return el
 
-    def text_present(self, text):
-        return text in self.driver.page_source
+    def add_item(self):
+        add_btn = self.driver.find_element(*self.CART_ADD_BTN)
+        add_btn.click()
 
-    def get_elements(self, locator):
-        self.wait.until(EC.presence_of_all_elements_located(locator))
-        return self.driver.find_elements(*locator)
+    def go_to_cart(self):
+        go_to_cart_btn = self.driver.find_element(*self.GO_TO_CART_BTN)
+        go_to_cart_btn.click()
 
-    def goto(self, url):
-        self.driver.get(url)
+    def go_to_main(self):
+        go_to_main_btn = self.driver.find_element(*self.GO_TO_MAIN_BTN)
+        go_to_main_btn.click()

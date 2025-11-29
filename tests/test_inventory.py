@@ -19,7 +19,6 @@ def test_open_detail_page(browser):
     inventory_page.open_page(BASE_URL)
     inventory_page.open_detail(item_name)
 
-
     assert item_name in browser.title
 
 @pytest.mark.regression
