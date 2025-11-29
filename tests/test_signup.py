@@ -13,7 +13,7 @@ def test_signup_success(browser, base_url, wait):
     browser.find_element(By.NAME, "password").send_keys(password) #생성한 패스워드를 Password란에 입력
     browser.find_element(By.NAME, "confirm password").send_keys(password) #생성한 패스워드를 Confirm Password란에 입력
     browser.find_element(By.XPATH, "//button[text()='Signup']").click() #sign up 버튼 클릭
-    wait.until(EC.url_changes(f"{base-url}/signup" )) #잠깐 대기
+    wait.until(EC.url_changes(f"{base_url}/signup" )) #잠깐 대기
     
     assert "signup" not in browser.current_url.lower() #회원가입 성공 시 URL이 signup이 아니어야 함
 
@@ -26,7 +26,7 @@ def test_signup_then_login(browser, base_url, wait):
     browser.find_element(By.NAME, "password").send_keys(password) #생성한 패스워드를 Password란에 입력
     browser.find_element(By.NAME, "confirm password").send_keys(password) #생성한 패스워드를 Confirm Password란에 입력
     browser.find_element(By.XPATH, "//button[text()='Signup']").click() #sign up 버튼 클릭
-    time.sleep(1) #1초 대기
+    wait.until(EC.url__to_be(f"{base_url}/login" )) #잠깐 대기
 
     browser.get(f"{base_url}/login") #로그인  화면으로 전환
     wait.until(EC.presence_of_element_located((By.NAME, "username"))).send_keys(username) #생성한 ID를 Username란에 입력
@@ -50,7 +50,7 @@ def test_signup_success(browser, base_url, wait):
     browser.find_element(By.NAME, "password").send_keys(password) #생성한 패스워드를 Password란에 입력
     browser.find_element(By.NAME, "confirm password").send_keys(password) #생성한 패스워드를 Confirm Password란에 입력
     browser.find_element(By.XPATH, "//button[text()='Signup']").click() #sign up 버튼 클릭
-    time.sleep(1) #1초 대기
+    wait.until(EC.url_changes(f"{base_url}/signup" )) #잠깐 대기
 
     assert "signup" not in browser.current_url.lower() #회원가입 성공 시 URL이 signup이 아니어야 함
 
@@ -63,7 +63,7 @@ def test_signup_then_login(browser, base_url, wait):
     browser.find_element(By.NAME, "password").send_keys(password) #생성한 패스워드를 Password란에 입력
     browser.find_element(By.NAME, "confirm password").send_keys(password) #생성한 패스워드를 Confirm Password란에 입력
     browser.find_element(By.XPATH, "//button[text()='Signup']").click() #sign up 버튼 클릭
-    time.sleep(1) #1초 대기
+    wait.until(EC.url__to_be(f"{base_url}/login" )) #잠깐 대기
 
     browser.get(f"{base_url}/login") #로그인  화면으로 전환
     wait.until(EC.presence_of_element_located((By.NAME, "username"))).send_keys(username) #생성한 ID를 Username란에 입력

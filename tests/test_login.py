@@ -45,7 +45,7 @@ def test_login_fail(browser, base_url, wait):
     wait.until(EC.presence_of_element_located((By.NAME, "username"))).send_keys("wrong_user")
     browser.find_element(By.NAME, "password").send_keys("wrong_pass")
     browser.find_element(By.XPATH, "//button[text()='Login']").click()
-    time.sleep(1)
+    wait.until(EC.url_to_be(f"{base_url}/login" ))
 
 >>>>>>> 18a5313830d400750ab03f110c0cfd715c92d650
     assert browser.current_url == f"{base_url}/login" # 실패 시 여전히 login 페이지에 머무름
