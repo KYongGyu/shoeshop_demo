@@ -46,7 +46,7 @@ def test_blank_name_input_checkout_page(browser):
 
     alert_window = browser.find_element(By.CSS_SELECTOR, ".alert-danger")
 
-    assert "모든 필수 정보를 입력해주세요." == alert_window.text
+    assert "모든 필수 정보를 입력해주세요." == alert_window.text.strip()
 
 def test_blank_phone_number_input_checkout_page(browser):
 
@@ -79,7 +79,7 @@ def test_blank_phone_number_input_checkout_page(browser):
 
     alert_window = browser.find_element(By.CSS_SELECTOR, ".alert-danger")
 
-    assert "모든 필수 정보를 입력해주세요." == alert_window.text
+    assert "모든 필수 정보를 입력해주세요." == alert_window.text.strip()
 
 def test_blank_address_input_checkout_page(browser):
     browser.get("http://127.0.0.1:5000/checkout")
@@ -111,7 +111,7 @@ def test_blank_address_input_checkout_page(browser):
 
     alert_window = browser.find_element(By.CSS_SELECTOR, ".alert-danger")
 
-    assert "모든 필수 정보를 입력해주세요." == alert_window.text
+    assert "모든 필수 정보를 입력해주세요." == alert_window.text.strip()
 
 def test_go_to_success_page(browser):
     browser.get("http://127.0.0.1:5000/checkout")
@@ -138,11 +138,14 @@ def test_go_to_success_page(browser):
     checkout_page.enter_phone_number("010-8572-0931")
     checkout_page.enter_address("용이동")
 
-    checkout_page.click_submit_btn()
+    success = browser.find_element(By.CSS_SELECTOR, ".btn.btn-success")
+    success.click()
     sleep(5)
 
-    #결제완료시
-    assert "결제가 완료되었습니다! 주문이 접수되었습니다." == alert_window.text
+    alert_window = browser.find_element(By.CSS_SELECTOR, ".alert.alert-success.mb-2")
+
+    assert "결제가 완료되었습니다! 주문이 접수되었습니다." == alert_window.text.strip()
+
 
 def test_go_to_cart_page(browser):
     browser.get("http://127.0.0.1:5000/checkout")
