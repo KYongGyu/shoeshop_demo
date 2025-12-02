@@ -4,12 +4,15 @@ import pytest
 from selenium.webdriver.common.by import By
 
 from tests.pages.item_detail_page import ItemDetailPage
+from utils.auth import clean_session, user_login
 
 BASE_URL = "http://127.0.0.1:5000"
 
 
 @pytest.mark.regression
 def test_logout_user_add_cart_in_item_detail_page(browser):
+    clean_session(browser)
+
     item_detail_page = ItemDetailPage(browser)
     product_path = "/product/7"
     item_detail_page.open_page(BASE_URL + product_path)
@@ -23,17 +26,10 @@ def test_logout_user_add_cart_in_item_detail_page(browser):
 
 @pytest.mark.regression
 def test_login_user_add_cart_in_item_detail_page(browser):
-    # 로그인 과정
+    clean_session(browser)
+    user_login(browser)
+
     item_detail_page = ItemDetailPage(browser)
-    item_detail_page.open_page(BASE_URL)
-    sleep(5)
-
-    menu_login = browser.find_element(By.LINK_TEXT, "Login")
-
-    menu_login.click()
-    browser.find_element(By.ID, "username").send_keys("test-user")
-    browser.find_element(By.ID, "password").send_keys("1234")
-    browser.find_element(By.CSS_SELECTOR, ".btn-primary").click()
 
     product_path = "/product/7"
     item_detail_page.open_page(BASE_URL + product_path)
@@ -47,6 +43,7 @@ def test_login_user_add_cart_in_item_detail_page(browser):
 
 @pytest.mark.regression
 def test_logout_user_go_to_cart_in_item_detail_page(browser):
+    clean_session(browser)
     item_detail_page = ItemDetailPage(browser)
     product_path = "/product/7"
     item_detail_page.open_page(BASE_URL + product_path)
@@ -60,17 +57,10 @@ def test_logout_user_go_to_cart_in_item_detail_page(browser):
 
 @pytest.mark.regression
 def test_login_user_remove_cart_in_item_detail_page(browser):
-    # 로그인 과정
+    clean_session(browser)
+    user_login(browser)
+
     item_detail_page = ItemDetailPage(browser)
-    item_detail_page.open_page(BASE_URL)
-    sleep(5)
-
-    menu_login = browser.find_element(By.LINK_TEXT, "Login")
-
-    menu_login.click()
-    browser.find_element(By.ID, "username").send_keys("test-user")
-    browser.find_element(By.ID, "password").send_keys("1234")
-    browser.find_element(By.CSS_SELECTOR, ".btn-primary").click()
 
     product_path = "/product/7"
     item_detail_page.open_page(BASE_URL + product_path)
