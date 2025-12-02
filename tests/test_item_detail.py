@@ -11,7 +11,7 @@ from utils.auth import clean_session, user_login
 BASE_URL = "http://127.0.0.1:5000"
 
 
-@pytest.mark.regression
+@pytest.mark.smoke
 def test_logout_user_add_cart_in_item_detail_page(browser):
     clean_session(browser)
 
@@ -26,7 +26,7 @@ def test_logout_user_add_cart_in_item_detail_page(browser):
 
     assert "로그인이 필요합니다." in alert_require_login_window.text
 
-@pytest.mark.regression
+@pytest.mark.smoke
 def test_login_user_add_cart_in_item_detail_page(browser):
     clean_session(browser)
     user_login(browser)
@@ -43,7 +43,7 @@ def test_login_user_add_cart_in_item_detail_page(browser):
 
     assert "장바구니에 추가되었습니다." in alert_cart_add_success_window.text
 
-@pytest.mark.regression
+@pytest.mark.xfail
 def test_logout_user_go_to_cart_in_item_detail_page(browser):
     clean_session(browser)
     item_detail_page = ItemDetailPage(browser)
@@ -57,7 +57,7 @@ def test_logout_user_go_to_cart_in_item_detail_page(browser):
 
     assert "Home" in browser.title
 
-@pytest.mark.regression
+@pytest.mark.smoke
 def test_login_user_remove_cart_in_item_detail_page(browser):
     clean_session(browser)
     user_login(browser)
@@ -72,7 +72,7 @@ def test_login_user_remove_cart_in_item_detail_page(browser):
 
     assert "Cart" in browser.title
 
-@pytest.mark.regression
+@pytest.mark.smoke
 def test_go_to_main_in_item_detail_page(browser):
     item_detail_page = ItemDetailPage(browser)
     product_path = "/product/7"

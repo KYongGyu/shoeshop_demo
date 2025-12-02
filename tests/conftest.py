@@ -10,7 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 @pytest.fixture(scope="session")
 def browser():
     options = webdriver.ChromeOptions()
-    # options.add_argument("headless")
+    options.add_argument("headless")
 
     prefs = {
         "credentials_enable_service": False,

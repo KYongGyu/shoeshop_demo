@@ -9,7 +9,7 @@ from utils.auth import clean_session, user_login
 BASE_URL = "http://127.0.0.1:5000"
 
 
-@pytest.mark.regression
+@pytest.mark.smoke
 def test_open_detail_page(browser):
 
     inventory_page = InventoryPage(browser)
@@ -20,7 +20,7 @@ def test_open_detail_page(browser):
 
     assert item_name in browser.title
 
-@pytest.mark.regression
+@pytest.mark.smoke
 def test_login_user_add_cart_in_inventory_page(browser):
     clean_session(browser)
     user_login(browser)
@@ -39,7 +39,7 @@ def test_login_user_add_cart_in_inventory_page(browser):
     assert "장바구니에 추가되었습니다." in alert_success_window.text
 
 
-@pytest.mark.regression
+@pytest.mark.smoke
 def test_logout_user_add_cart_in_inventory_page(browser):
     clean_session(browser)
 
@@ -51,11 +51,9 @@ def test_logout_user_add_cart_in_inventory_page(browser):
     inventory_page.add_item(item_name)
     WebDriverWait(browser, 10).until(EC.url_contains(BASE_URL + "/login"))
 
-    print(browser.title)
-
     assert "Login" in browser.title
 
-@pytest.mark.regression
+@pytest.mark.smoke
 def test_login_user_remove_cart_in_inventory_page(browser):
     clean_session(browser)
     user_login(browser)
@@ -70,8 +68,10 @@ def test_login_user_remove_cart_in_inventory_page(browser):
     WebDriverWait(browser, 10).until(EC.url_to_be(BASE_URL + "/"))
 
     inventory_page.remove_item(item_name)
+    WebDriverWait(browser, 10).until(EC.url_to_be(BASE_URL + "/"))
 
     alert_success_window = browser.find_element(By.CSS_SELECTOR, ".alert-info")
+
 
     assert "장바구니에서 제거되었습니다." in alert_success_window.text
 
