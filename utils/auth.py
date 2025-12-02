@@ -2,9 +2,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+BASE_URL = "http://127.0.0.1:5000"
 
 def clean_session(browser):
-    browser.get("http://127.0.0.1:5000/")
+    browser.get(BASE_URL)
     wait = WebDriverWait(browser, 5)
 
     try:

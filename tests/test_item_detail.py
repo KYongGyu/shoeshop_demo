@@ -2,6 +2,8 @@ from time import sleep
 
 import pytest
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 from tests.pages.item_detail_page import ItemDetailPage
 from utils.auth import clean_session, user_login
@@ -16,7 +18,7 @@ def test_logout_user_add_cart_in_item_detail_page(browser):
     item_detail_page = ItemDetailPage(browser)
     product_path = "/product/7"
     item_detail_page.open_page(BASE_URL + product_path)
-    sleep(5)
+    WebDriverWait(browser, 5).until(EC.url_to_be(BASE_URL + product_path))
 
     item_detail_page.add_item()
 
@@ -33,7 +35,7 @@ def test_login_user_add_cart_in_item_detail_page(browser):
 
     product_path = "/product/7"
     item_detail_page.open_page(BASE_URL + product_path)
-    sleep(5)
+    WebDriverWait(browser, 5).until(EC.url_to_be(BASE_URL + product_path))
 
     item_detail_page.add_item()
 
@@ -47,11 +49,11 @@ def test_logout_user_go_to_cart_in_item_detail_page(browser):
     item_detail_page = ItemDetailPage(browser)
     product_path = "/product/7"
     item_detail_page.open_page(BASE_URL + product_path)
-    sleep(5)
+    WebDriverWait(browser, 5).until(EC.url_to_be(BASE_URL + product_path))
 
     item_detail_page.go_to_cart()
 
-    sleep(5)
+    WebDriverWait(browser, 5).until(EC.url_to_be(BASE_URL))
 
     assert "Home" in browser.title
 
@@ -64,7 +66,7 @@ def test_login_user_remove_cart_in_item_detail_page(browser):
 
     product_path = "/product/7"
     item_detail_page.open_page(BASE_URL + product_path)
-    sleep(5)
+    WebDriverWait(browser, 5).until(EC.url_to_be(BASE_URL + product_path))
 
     item_detail_page.go_to_cart()
 
@@ -75,9 +77,8 @@ def test_go_to_main_in_item_detail_page(browser):
     item_detail_page = ItemDetailPage(browser)
     product_path = "/product/7"
     item_detail_page.open_page(BASE_URL + product_path)
-    sleep(5)
+    WebDriverWait(browser, 5).until(EC.url_to_be(BASE_URL + product_path))
 
     item_detail_page.go_to_main()
-    sleep(5)
 
     assert "Home" in browser.title

@@ -1,5 +1,3 @@
-from time import sleep
-
 import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -34,9 +32,9 @@ def test_login_user_add_cart_in_inventory_page(browser):
     item_name = "Canvas Breeze"
 
     inventory_page.add_item(item_name)
-    sleep(5)
 
     alert_success_window = browser.find_element(By.CSS_SELECTOR, ".alert-success")
+
 
     assert "장바구니에 추가되었습니다." in alert_success_window.text
 
@@ -51,7 +49,7 @@ def test_logout_user_add_cart_in_inventory_page(browser):
     inventory_page.open_page(BASE_URL)
 
     inventory_page.add_item(item_name)
-    sleep(5)
+    WebDriverWait(browser, 10).until(EC.url_contains(BASE_URL + "/login"))
 
     print(browser.title)
 
@@ -69,7 +67,7 @@ def test_login_user_remove_cart_in_inventory_page(browser):
     item_name = "Canvas Breeze"
 
     inventory_page.add_item(item_name)
-    sleep(5)
+    WebDriverWait(browser, 10).until(EC.url_to_be(BASE_URL + "/"))
 
     inventory_page.remove_item(item_name)
 
