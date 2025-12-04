@@ -7,7 +7,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 @pytest.fixture(scope="session")
 def browser():
     options = webdriver.ChromeOptions()
-    options.add_argument("headless")
+    # options.add_argument("headless")
 
     prefs = {
         "credentials_enable_service": False,

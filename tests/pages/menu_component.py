@@ -1,24 +1,30 @@
 from selenium.webdriver.common.by import By
 
 class MenuComponent:
-    LOGOUT = (By.ID, "logout_topbar_link")
-    LOGIN = (By.ID, "login_topbar_link")
-    SIGNUP = (By.ID, "signup_topbar_link")
+    LOGOUT = (By.LINK_TEXT, "Logout")
+    LOGIN = (By.LINK_TEXT, 'Login')
+    SIGNUP = (By.LINK_TEXT, "Sign Up")
+    RESONA_SHOES = (By.LINK_TEXT, "RESONA SHOES")
+    HOME = (By.LINK_TEXT, "Home")
+    CART = (By.XPATH, '//*[@id="mainNav"]/ul[1]/li[2]/a')
+
+    def __init__(self, driver):
+        self.driver = driver
 
     def logout(self):
-        if self.is_logged_in():
-            self.click(self.LOGOUT)
+        self.driver.find_element(*self.LOGOUT).click()
 
     def login(self):
-        if self.is_logged_out():
-            self.click(self.LOGIN)
+        self.driver.find_element(*self.LOGIN).click()
 
     def signup(self):
-        if self.is_logged_out():
-            self.click(self.SIGNUP)
+        self.driver.find_element(*self.SIGNUP).click()
 
-    def is_logged_in(self):
-        return self.is_element_present(self.LOGOUT)
+    def resona_shoes(self):
+        self.driver.find_element(*self.RESONA_SHOES).click()
 
-    def is_logged_out(self):
-        return self.is_element_present(self.LOGIN) and self.is_element_present(self.SIGNUP)
+    def home(self):
+        self.driver.find_element(*self.HOME).click()
+
+    def cart(self):
+        self.driver.find_element(*self.CART).click()
