@@ -1,0 +1,33 @@
+html
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, intial-scale=1.0">
+    <title>결제프로세스</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="checkout-form">
+        <h2>결제 정보 입력</h2>
+        <form id="checkoutForm">
+            <label for="name">이름:</label>
+            <input type="tel" id="phone" required>
+
+            <label for="phone">전화번호:</label>
+            <input type="tel" id="phone" required>
+
+            <label for="adress">주소:</label>
+            <input type="text" id="Adress" required>
+
+            <div id="error-message" style="color: red; display: none;">
+
+            <button type="button" id="'cancel btn">cnlth</button>
+            <button type="submit" id="submit-btn">결제완료</button> 
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
