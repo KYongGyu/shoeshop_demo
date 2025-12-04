@@ -6,6 +6,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from utils.auth import user_login
+
 
 @pytest.fixture(scope="session")
 def browser():
@@ -25,5 +27,6 @@ def browser():
 
     yield driver
     driver.quit()
+
 
 
